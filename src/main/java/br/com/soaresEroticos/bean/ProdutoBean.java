@@ -1,28 +1,45 @@
 package br.com.soaresEroticos.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.com.soaresEroticos.dao.FornecedorDAO;
 import br.com.soaresEroticos.dao.ProdutoDAO;
 import br.com.soaresEroticos.domain.Fornecedor;
 import br.com.soaresEroticos.domain.Produto;
+import br.com.soaresEroticos.util.HibernateUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class ProdutoBean implements Serializable {
-	private Produto  produto;
+	private Produto produto;
 	private List<Produto> produtos;
 	private List<Fornecedor> fornecedor;
-	
+
 	public Produto getProduto() {
 		return produto;
 	}
@@ -57,7 +74,7 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void novo() {
 		try {
 			produto = new Produto();
@@ -69,23 +86,37 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
-	public void editar(ActionEvent evento){
+
+	public void editar(ActionEvent evento) {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+
+			produto.setCaminho("C:/Users/brend/Documents/Projeto Final Brenda/uploads/" + produto.getCodigo() + ".jpg");
 
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
 			fornecedor = fornecedorDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar um produto");
 			erro.printStackTrace();
-		}	
+		}
 	}
-	
+
 	public void salvar() {
 		try {
+
+			if (produto.getCaminho() == null) {
+				Messages.addGlobalInfo("O campo imagem é obrigatório");
+				return;
+			}
+
 			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtoDAO.merge(produto);
+			Produto produtoRetorno = produtoDAO.merge(produto);
+
+			Path origem = Paths.get(produto.getCaminho());
+			Path destino = Paths.get(
+					"C:/Users/brend/Documents/Projeto Final Brenda/uploads/" + produtoRetorno.getCodigo() + ".jpg");
+
+			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 
 			produto = new Produto();
 
@@ -95,7 +126,7 @@ public class ProdutoBean implements Serializable {
 			produtos = produtoDAO.listar();
 
 			Messages.addGlobalInfo("Produto salvo com sucesso");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o produto");
 			erro.printStackTrace();
 		}
@@ -108,12 +139,71 @@ public class ProdutoBean implements Serializable {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtoDAO.excluir(produto);
 
+			Path arquivo = Paths
+					.get("C:/Users/brend/Documents/Projeto Final Brenda/uploads/" + produto.getCodigo() + ".jpg");
+
+			Files.deleteIfExists(arquivo);
+
 			produtos = produtoDAO.listar();
 
 			Messages.addGlobalInfo("Produto removido com sucesso");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o produto");
 			erro.printStackTrace();
 		}
+	}
+
+	public void upload(FileUploadEvent evento) {
+		try {
+			UploadedFile arquivoUpload = evento.getFile();
+			Path arquivoTemp = Files.createTempFile(null, null);
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			produto.setCaminho(arquivoTemp.toString());
+			Messages.addGlobalInfo("Imagem salva com sucesso");
+
+		} catch (IOException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar carregar a imagem ");
+			erro.printStackTrace();
+		}
+
+	}
+
+	public void imprimir() {
+		
+		try {
+			
+			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
+			Map<String, Object> filtros = tabela.getFilters();
+			
+			String proDescricao = (String) filtros.get("descricao");
+			String forDescricao = (String) filtros.get("fornecedor.descricao");
+			
+			String caminho = Faces.getRealPath("/reports/produto.jasper");
+			
+			Map<String, Object> parametros = new HashMap<>();
+			
+			if (proDescricao == null) {
+				parametros.put("PRODUTO_DESCRICAO", "%%");
+			}else {
+				parametros.put("PRODUTO_DESCRICAO", "%" + proDescricao + "%");
+			}
+			if (forDescricao == null) {
+				parametros.put("PRODUTO_FORNECEDOR", "%%");
+			} else {
+				parametros.put("PRODUTO_FORNECEDOR", "%" + forDescricao + "%");
+			}
+			
+			Connection conexao = HibernateUtil.getConexao();
+			
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
+			
+			JasperPrintManager.printReport(relatorio, true);
+			
+		}catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			erro.printStackTrace();
+		}
+
+		
 	}
 }

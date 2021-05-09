@@ -29,7 +29,7 @@
 		<property name="show_sql">true</property>
 
 		<!-- Cria as tabelas do banco de dados -->
-		<property name="hbm2ddl.auto">validate</property>
+		<property name="hbm2ddl.auto">update</property>
 		
 		<mapping class="br.com.soaresEroticos.domain.Estado"/>
 		<mapping class="br.com.soaresEroticos.domain.Cidade"/>
@@ -41,6 +41,8 @@
 		<mapping class="br.com.soaresEroticos.domain.Pessoa"/>
 		<mapping class="br.com.soaresEroticos.domain.Usuario"/>
 		<mapping class="br.com.soaresEroticos.domain.Venda"/>
+		<mapping class="br.com.soaresEroticos.domain.Historico"/>
+		
 		
 	</session-factory>
 

@@ -16,7 +16,7 @@
 	<!-- Parâmetros de execução -->
 	<build>
 		<!-- Nome do projeto empacotado -->
-		<finalName>Financeiro</finalName>
+		<finalName>SoaresEroticos</finalName>
 
 		<!-- Plugins -->
 		<plugins>
@@ -111,6 +111,15 @@
 			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
 		</dependency>
+		
+		<!-- Apache Shiro Core -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+
 
 	</dependencies>
 

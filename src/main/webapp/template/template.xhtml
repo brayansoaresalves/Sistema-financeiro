@@ -36,7 +36,7 @@
 						<p:menuitem value="Sair" />
 					</p:submenu>
 
-					<p:submenu label="Cadastros">
+					<p:submenu label="Cadastros"  rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}">
 						<p:menuitem value="Produtos" outcome="/pages/produto.xhtml" />
 						<p:menuitem value="Fornecedores" outcome="/pages/fornecedor.xhtml"/>
 						<p:menuitem value="Funcionários" outcome="/pages/funcionario.xhtml"  />
@@ -50,6 +50,11 @@
 					<p:submenu label="Vendas"  >
 					<p:menuitem value="Nova Venda" outcome="/pages/vendas.xhtml" />
 					</p:submenu>
+					
+					<p:submenu label="Consultas"  >
+					<p:menuitem value="Produtos" outcome="/pages/produtosconsulta.xhtml" />
+					</p:submenu>
+					
 
 					<p:submenu label="Ajuda">
 					</p:submenu>

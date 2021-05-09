@@ -8,7 +8,6 @@ xmlns:p="http://primefaces.org/ui"
 template="/template/template.xhtml"
 >
 
-
 <ui:define name="conteudo">
 
 	<h:form id="formListagem">
@@ -23,9 +22,13 @@ template="/template/template.xhtml"
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
+					<p:commandButton value="Imprimir" actionListener="#{produtoBean.imprimir}">
+					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+				filterMatchMode="contains"
+				sortBy="#{produto.descricao}">
 					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
@@ -39,7 +42,9 @@ template="/template/template.xhtml"
 					</h:outputText>	
 				</p:column>
 
-				<p:column headerText="Fornecedor">
+				<p:column headerText="Fornecedor" filterBy="#{produto.fornecedor.descricao}"
+				filterMatchMode="contains"
+				sortBy="#{produto.fornecedor.descricao}">
 					<h:outputText value="#{produto.fornecedor.descricao}" />
 				</p:column>
 
@@ -73,8 +78,8 @@ template="/template/template.xhtml"
 	</h:form>
 
 	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" global="true" closable="false">
-		<h:form id="formCadastro">
+		draggable="true" resizable="false" global="true" closable="false">
+		<h:form id="formCadastro" enctype="multipart/form-data">
 			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel value="Descrição:" />
 				<p:inputText maxlength="50" size="30"
@@ -110,6 +115,14 @@ template="/template/template.xhtml"
 					<f:selectItems value="#{produtoBean.fornecedor}" var="fornecedor"
 						itemValue="#{fornecedor}" itemLabel="#{fornecedor.descricao}" />
 				</p:selectOneMenu>
+				<p:outputLabel value="Imagem:" for="upload"  />
+				<p:fileUpload id="upload" mode="advanced" fileUploadListener="#{produtoBean.upload}" 
+				update=":mensagem :formCadastro:foto" auto="true"/>
+				
+				<p:outputLabel value="Foto:" for="foto" />
+				<p:graphicImage id="foto" value="#{imageBean.foto}" width="120" height="120">
+					<f:param name="caminho" value="#{produtoBean.produto.caminho}" />
+				</p:graphicImage>
 
 			</h:panelGrid>
 

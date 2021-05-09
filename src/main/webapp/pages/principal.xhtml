@@ -11,7 +11,7 @@ template="/template/template.xhtml"
 
 <ui:define name="conteudo">
 <h:outputLabel>
-Página Principal
+<h:outputText value="Bem Vindo #{autenticacaoBean.usuarioLogado.pessoa.nome}!" />
 </h:outputLabel>
 </ui:define>
 
