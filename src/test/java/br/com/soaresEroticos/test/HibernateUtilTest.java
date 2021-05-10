@@ -8,7 +8,6 @@ import br.com.soaresEroticos.util.HibernateUtil;
 
 public class HibernateUtilTest {
 	@Test
-
 	public void conectar(){
 		Session sessao = HibernateUtil.getFabricadesessoes().openSession();
 		sessao.close();

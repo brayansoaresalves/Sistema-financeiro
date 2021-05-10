@@ -11,16 +11,15 @@ import br.com.soaresEroticos.domain.Estado;
 public class CidadeDAOTest {
 	
 	@Test
-	@Ignore
 	public void salvar() {
-		Long codigoEstado = 4L;
+		Long codigoEstado = 5L;
 		
 		EstadoDAO estadoDAO = new EstadoDAO();
 
 		Estado estado = estadoDAO.buscar(codigoEstado);
 
 		Cidade cidade = new Cidade();
-		cidade.setNome("Itumbiara");
+		cidade.setNome("Manaus");
 		cidade.setEstado(estado);
 
 		CidadeDAO cidadeDAO = new CidadeDAO();

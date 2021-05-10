@@ -9,11 +9,11 @@ import br.com.soaresEroticos.domain.Estado;
 public class EstadoDAOTest {
 	
 	@Test
-	@Ignore
+
 	public void salvar(){
 		Estado estado = new Estado();
-		estado.setNome("GOIAS");
-		estado.setSigla("GO");
+		estado.setNome("AMAZONAS");
+		estado.setSigla("AM");
 		
 		EstadoDAO estadoDAO = new EstadoDAO();
 		estadoDAO.salvar(estado);

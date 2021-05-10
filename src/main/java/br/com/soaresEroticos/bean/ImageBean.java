@@ -31,7 +31,7 @@ public class ImageBean {
 	
 	public StreamedContent getFoto() throws IOException{
 		if (caminho == null || caminho.isEmpty()) {
-			Path path = Paths.get("C:/Users/brend/Documents/Projeto Final Brenda/uploads/branco.jpg");
+			Path path = Paths.get("C:/Users/braya/Documents/Trabalho de Conclusão de Curso/uploads/branco.png");
 			InputStream stream = Files.newInputStream(path);
 			foto = new DefaultStreamedContent(stream);
 		}else {

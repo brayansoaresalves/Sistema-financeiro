@@ -13,7 +13,7 @@ public class FornecedorDAOTest {
 	@Ignore
 	public void salvar() {
 		Fornecedor fornecedor = new Fornecedor();
-		fornecedor.setDescricao("DORNELAS");
+		fornecedor.setDescricao("Distribuidora SexShop");
 
 		FornecedorDAO fornecedorDAO = new FornecedorDAO();
 		fornecedorDAO.salvar(fornecedor);

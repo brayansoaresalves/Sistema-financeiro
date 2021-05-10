@@ -16,10 +16,10 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 		try {
 			Criteria consulta = sessao.createCriteria(Usuario.class);
 			consulta.createAlias("pessoa","p");
-			consulta.add(Restrictions.eqOrIsNull("p.cpf", cpf));
+			consulta.add(Restrictions.eq("p.cpf", cpf));
 			
 			SimpleHash hash = new SimpleHash("md5", senha);
-			consulta.add(Restrictions.eqOrIsNull("senha", hash.toHex()));
+			consulta.add(Restrictions.eq("senha", hash.toHex()));
 			Usuario resultado = (Usuario) consulta.uniqueResult();
 			
 			

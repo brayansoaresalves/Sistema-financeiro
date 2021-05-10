@@ -91,7 +91,7 @@ public class ProdutoBean implements Serializable {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
-			produto.setCaminho("C:/Users/brend/Documents/Projeto Final Brenda/uploads/" + produto.getCodigo() + ".jpg");
+			produto.setCaminho("C:/Users/braya/Documents/Trabalho de Conclusão de Curso/uploads/" + produto.getCodigo() + ".jpg");
 
 			FornecedorDAO fornecedorDAO = new FornecedorDAO();
 			fornecedor = fornecedorDAO.listar();
@@ -114,7 +114,7 @@ public class ProdutoBean implements Serializable {
 
 			Path origem = Paths.get(produto.getCaminho());
 			Path destino = Paths.get(
-					"C:/Users/brend/Documents/Projeto Final Brenda/uploads/" + produtoRetorno.getCodigo() + ".jpg");
+					"C:/Users/braya/Documents/Trabalho de Conclusão de Curso/uploads/" + produtoRetorno.getCodigo() + ".jpg");
 
 			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 
@@ -140,7 +140,7 @@ public class ProdutoBean implements Serializable {
 			produtoDAO.excluir(produto);
 
 			Path arquivo = Paths
-					.get("C:/Users/brend/Documents/Projeto Final Brenda/uploads/" + produto.getCodigo() + ".jpg");
+					.get("C:/Users/braya/Documents/Trabalho de Conclusão de Curso/uploads/" + produto.getCodigo() + ".jpg");
 
 			Files.deleteIfExists(arquivo);
 
@@ -169,7 +169,6 @@ public class ProdutoBean implements Serializable {
 	}
 
 	public void imprimir() {
-		
 		try {
 			
 			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListagem:tabela");
@@ -188,9 +187,9 @@ public class ProdutoBean implements Serializable {
 				parametros.put("PRODUTO_DESCRICAO", "%" + proDescricao + "%");
 			}
 			if (forDescricao == null) {
-				parametros.put("PRODUTO_FORNECEDOR", "%%");
+				parametros.put("FORNECEDOR_DESCRICAO", "%%");
 			} else {
-				parametros.put("PRODUTO_FORNECEDOR", "%" + forDescricao + "%");
+				parametros.put("FORNECEDOR_DESCRICAO", "%" + forDescricao + "%");
 			}
 			
 			Connection conexao = HibernateUtil.getConexao();
