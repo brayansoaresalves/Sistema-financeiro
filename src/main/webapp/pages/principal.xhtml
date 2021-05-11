@@ -11,7 +11,40 @@ template="/template/template.xhtml"
 
 <ui:define name="conteudo">
 <h:outputLabel>
-<h:outputText value="Bem Vindo #{autenticacaoBean.usuarioLogado.pessoa.nome}!" />
+<h:form id="formListagem">
+		<p:panel header="Lista de Produtos - Usuario Logado - #{autenticacaoBean.usuarioLogado.pessoa.nome}!">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{produtoBean.produtos}" var="produto"
+				rows="12">
+				<f:facet name="header">
+				</f:facet>
+
+				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
+				filterMatchMode="contains"
+				sortBy="#{produto.descricao}">
+					<h:outputText value="#{produto.descricao}" />
+				</p:column>
+
+				<p:column headerText="Quantidade">
+					<h:outputText value="#{produto.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço">
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>	
+				</p:column>
+
+				<p:column headerText="Fornecedor" filterBy="#{produto.fornecedor.descricao}"
+				filterMatchMode="contains"
+				sortBy="#{produto.fornecedor.descricao}">
+					<h:outputText value="#{produto.fornecedor.descricao}" />
+				</p:column>
+
+				
+			</p:dataTable>
+			</p:panel>
+			</h:form>
 </h:outputLabel>
 </ui:define>
 
