@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="26b1342b-ae47-4f18-b95c-ebfae4d55393">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="ZXN0YWRvIEFTICw3NywxMTksOGRkY2UxYTEtOGU2MC00NzY5LTkzMjgtNTZjOTFlZjljNjk2Ow=="/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Financeiro Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT nome,
+	sigla
+FROM estado
+ORDER BY estado.nome ASC]]>
+	</queryString>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estado"/>
+	</field>
+	<field name="sigla" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sigla"/>
+		<property name="com.jaspersoft.studio.field.label" value="sigla"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="estado"/>
+	</field>
+	<title>
+		<band height="99" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="550" height="99" uuid="9a4a4691-e059-4cf3-8cd2-f550b76ef5bd"/>
+				<imageExpression><![CDATA["/src/main/webapp/resources/images/soareseroticos.jpeg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="7" width="550" height="30" uuid="cb7d21bb-09ab-4d5b-a8b5-1ee2f77500d9"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatorio de Estados]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="4" width="100" height="30" uuid="f75dbd0a-b3b3-437e-8321-0b6d889c817d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d2140791-7a0b-4849-aa30-1e9e24d73b0e"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="4" width="100" height="30" uuid="14b37dc6-797a-41ad-9255-94d717204e73">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41268151-62e0-4e24-80c4-8189ff0332f5"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Sigla]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="140" y="4" width="100" height="30" uuid="3e73df43-2e98-4b0b-89b3-98d0d96fc28d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d2140791-7a0b-4849-aa30-1e9e24d73b0e"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="4" width="100" height="30" uuid="9c257b55-a566-4a54-a3d6-d0e1fb255945">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41268151-62e0-4e24-80c4-8189ff0332f5"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="550" height="30" uuid="1fdad5e2-2bbb-4bda-b0bf-be21b1f5212e"/>
+				<textElement textAlignment="Justified">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Itumbiara - GO]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

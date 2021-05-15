@@ -20,7 +20,7 @@
 
 <p:growl id="mensagem"/>
 
-<p:dialog header="Autenticação" closable="false" draggable="false"
+<p:dialog header="Login" closable="false" draggable="false"
 		resizable="false" global="true" visible="true">
 		<h:form>
 			<h:panelGrid columns="2">
@@ -35,10 +35,11 @@
 					value="#{autenticacaoBean.usuario.senha}"/>
 			</h:panelGrid>
 
-			<h:panelGrid columns="1">
+			<h:panelGrid columns="2">
 				<p:commandButton value="Entrar" update=":mensagem" 
 				actionListener="#{autenticacaoBean.autenticar}"/>
 			</h:panelGrid>
+			
 		</h:form>
 	</p:dialog>
 	

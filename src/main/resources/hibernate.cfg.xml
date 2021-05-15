@@ -42,6 +42,8 @@
 		<mapping class="br.com.soaresEroticos.domain.Usuario"/>
 		<mapping class="br.com.soaresEroticos.domain.Venda"/>
 		<mapping class="br.com.soaresEroticos.domain.Historico"/>
+		<mapping class="br.com.soaresEroticos.domain.Caixa"/>
+		<mapping class="br.com.soaresEroticos.domain.Movimentacao"/>
 		
 		
 	</session-factory>

@@ -205,4 +205,19 @@ public class ProdutoBean implements Serializable {
 
 		
 	}
+	
+//	public void imprimirEstado() {
+//		try {
+//			String caminho = Faces.getRealPath("/reports/estado.jasper");
+//			Map<String, Object> parametros = new HashMap<>();
+//			
+//			Connection conexao = HibernateUtil.getConexao();
+//			
+//			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
+//			JasperPrintManager.printReport(relatorio, true);
+//		}catch (JRException erro) {
+//			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+//			erro.printStackTrace();
+//		}
+//	}
 }
